@@ -1,0 +1,361 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a//dev/null b/css/styles.css
+index 0000000000000000000000000000000000000000..8ec281583942b25d87f939f064bcc5692f894189 100644
+--- a//dev/null
++++ b/css/styles.css
+@@ -0,0 +1,352 @@
++
++        @import url('https://fonts.googleapis.com/css2?family=MS+Sans+Serif:wght@400;700&display=swap');
++        
++        * {
++            margin: 0;
++            padding: 0;
++            box-sizing: border-box;
++            font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
++            font-size: 11px;
++        }
++
++        body {
++            background: linear-gradient(45deg, #2E7DE6 0%, #6BB7FF 50%, #2E7DE6 100%);
++            height: 100vh;
++            overflow: hidden;
++            cursor: url('../assets/cursor.cur'), auto;
++        }
++
++        .desktop {
++            position: relative;
++            width: 100vw;
++            height: 100vh;
++            background-image: url('../assets/grid.svg');
++        }
++
++        .desktop-icon {
++            position: absolute;
++            width: 80px;
++            height: 80px;
++            display: flex;
++            flex-direction: column;
++            align-items: center;
++            justify-content: center;
++            cursor: pointer;
++            color: white;
++            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
++            text-align: center;
++            padding: 5px;
++            border-radius: 3px;
++            transition: background-color 0.2s;
++        }
++
++        .desktop-icon:hover {
++            background-color: rgba(255,255,255,0.2);
++        }
++
++        .desktop-icon.selected {
++            background-color: rgba(255,255,255,0.3);
++            border: 1px dotted white;
++        }
++
++        .icon-image {
++            width: 32px;
++            height: 32px;
++            margin-bottom: 4px;
++            background-size: contain;
++            background-repeat: no-repeat;
++            background-position: center;
++        }
++
++        .my-computer { background-image: url('../assets/my-computer.svg'); }
++        .folder-icon { background-image: url('../assets/folder.svg'); }
++        .notepad-icon { background-image: url('../assets/notepad.svg'); }
++        .ie-icon { background-image: url('../assets/ie.svg'); }
++
++        .taskbar {
++            position: fixed;
++            bottom: 0;
++            left: 0;
++            right: 0;
++            height: 30px;
++            background: linear-gradient(to bottom, #245EDB 0%, #1941A5 3%, #1941A5 97%, #245EDB 100%);
++            border-top: 1px solid #3D6DDE;
++            display: flex;
++            align-items: center;
++            z-index: 1000;
++        }
++
++        .start-button {
++            height: 24px;
++            margin: 3px;
++            padding: 0 12px;
++            background: linear-gradient(to bottom, #3D6DDE 0%, #2952C7 3%, #2952C7 97%, #3D6DDE 100%);
++            border: 1px outset #3D6DDE;
++            border-radius: 3px;
++            color: white;
++            font-weight: bold;
++            display: flex;
++            align-items: center;
++            cursor: pointer;
++            font-size: 11px;
++        }
++
++        .start-button:active {
++            border: 1px inset #3D6DDE;
++            background: linear-gradient(to bottom, #2952C7 0%, #3D6DDE 97%, #2952C7 100%);
++        }
++
++        .start-logo {
++            width: 16px;
++            height: 16px;
++            background: radial-gradient(circle, #ff6b35 0%, #ff4500 50%, #dc143c 100%);
++            border-radius: 50%;
++            margin-right: 4px;
++        }
++
++        .taskbar-buttons {
++            flex: 1;
++            display: flex;
++            margin-left: 10px;
++        }
++
++        .taskbar-button {
++            height: 22px;
++            margin: 1px;
++            padding: 0 8px;
++            background: linear-gradient(to bottom, #3D6DDE 0%, #2952C7 50%, #1941A5 100%);
++            border: 1px outset #3D6DDE;
++            color: white;
++            display: flex;
++            align-items: center;
++            cursor: pointer;
++            font-size: 11px;
++            max-width: 160px;
++            overflow: hidden;
++            white-space: nowrap;
++        }
++
++        .taskbar-button.active {
++            border: 1px inset #3D6DDE;
++            background: linear-gradient(to bottom, #1941A5 0%, #2952C7 50%, #3D6DDE 100%);
++        }
++
++        .system-tray {
++            margin-right: 5px;
++            height: 22px;
++            background: linear-gradient(to bottom, #3D6DDE 0%, #2952C7 50%, #1941A5 100%);
++            border: 1px inset #3D6DDE;
++            display: flex;
++            align-items: center;
++            padding: 0 8px;
++            color: white;
++            font-size: 11px;
++        }
++
++        .window {
++            position: absolute;
++            background: #c0c0c0;
++            border: 2px outset #c0c0c0;
++            min-width: 300px;
++            min-height: 200px;
++            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
++            z-index: 100;
++        }
++
++        .window.active {
++            z-index: 101;
++        }
++
++        .title-bar {
++            height: 18px;
++            background: linear-gradient(to right, #0a246a 0%, #a6caf0 100%);
++            color: white;
++            display: flex;
++            align-items: center;
++            padding: 2px;
++            cursor: move;
++            font-weight: bold;
++            font-size: 11px;
++        }
++
++        .title-bar.inactive {
++            background: linear-gradient(to right, #808080 0%, #c0c0c0 100%);
++            color: #c0c0c0;
++        }
++
++        .title-text {
++            flex: 1;
++            margin-left: 4px;
++        }
++
++        .window-controls {
++            display: flex;
++        }
++
++        .control-button {
++            width: 16px;
++            height: 14px;
++            background: #c0c0c0;
++            border: 1px outset #c0c0c0;
++            margin-left: 1px;
++            display: flex;
++            align-items: center;
++            justify-content: center;
++            cursor: pointer;
++            font-size: 8px;
++            font-weight: bold;
++        }
++
++        .control-button:active {
++            border: 1px inset #c0c0c0;
++        }
++
++        .minimize { color: black; }
++        .maximize { color: black; }
++        .close { color: black; }
++
++        .window-content {
++            padding: 8px;
++            background: white;
++            height: calc(100% - 18px);
++            overflow: auto;
++            font-size: 11px;
++        }
++
++        .menu-bar {
++            background: #c0c0c0;
++            border-bottom: 1px solid #808080;
++            padding: 2px;
++            font-size: 11px;
++        }
++
++        .menu-item {
++            display: inline-block;
++            padding: 4px 8px;
++            cursor: pointer;
++        }
++
++        .menu-item:hover {
++            background: #0a246a;
++            color: white;
++        }
++
++        .start-menu {
++            position: fixed;
++            bottom: 30px;
++            left: 0;
++            width: 200px;
++            background: linear-gradient(to right, #245EDB 0%, #c0c0c0 25%, #c0c0c0 100%);
++            border: 2px outset #c0c0c0;
++            display: none;
++            z-index: 999;
++            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
++        }
++
++        .start-menu.show {
++            display: block;
++        }
++
++        .start-menu-header {
++            background: linear-gradient(135deg, #245EDB 0%, #1941A5 100%);
++            color: white;
++            padding: 20px 10px 10px 10px;
++            font-weight: bold;
++            font-size: 12px;
++            position: relative;
++            overflow: hidden;
++        }
++
++        .start-menu-header::before {
++            content: '';
++            position: absolute;
++            top: -50%;
++            left: -50%;
++            width: 200%;
++            height: 200%;
++            background: url('../assets/start-menu-header.svg');
++            animation: float 20s infinite linear;
++        }
++
++        .start-menu-items {
++            padding: 4px 0;
++        }
++
++        .start-menu-item {
++            padding: 6px 30px 6px 40px;
++            cursor: pointer;
++            font-size: 11px;
++            position: relative;
++            display: flex;
++            align-items: center;
++        }
++
++        .start-menu-item:hover {
++            background: #245EDB;
++            color: white;
++        }
++
++        .start-menu-item::before {
++            content: '';
++            position: absolute;
++            left: 10px;
++            width: 16px;
++            height: 16px;
++            background-size: contain;
++        }
++
++        .programs::before { background-image: url('../assets/programs.svg'); }
++        .documents::before { background-image: url('../assets/documents.svg'); }
++
++        h1 { font-size: 16px; color: #0a246a; margin-bottom: 10px; }
++        h2 { font-size: 14px; color: #0a246a; margin: 15px 0 8px 0; }
++        h3 { font-size: 12px; color: #0a246a; margin: 12px 0 6px 0; }
++
++        .section {
++            margin-bottom: 15px;
++            padding: 8px;
++            background: #f0f0f0;
++            border: 1px inset #c0c0c0;
++        }
++
++        .experience-item, .education-item, .project-item {
++            margin-bottom: 12px;
++            padding: 6px;
++            background: white;
++            border: 1px solid #808080;
++        }
++
++        .company, .school { font-weight: bold; color: #0a246a; }
++        .position, .degree { font-style: italic; }
++        .date { color: #666; font-size: 10px; }
++
++        ul { margin-left: 20px; margin-top: 4px; }
++        li { margin-bottom: 2px; }
++
++        @keyframes float {
++            0% { transform: translateX(-100px) translateY(-100px) rotate(0deg); }
++            100% { transform: translateX(100px) translateY(100px) rotate(360deg); }
++        }
++
++        .skills-grid {
++            display: grid;
++            grid-template-columns: 1fr 1fr;
++            gap: 8px;
++            margin-top: 8px;
++        }
++
++        .skill-category {
++            background: white;
++            padding: 6px;
++            border: 1px solid #808080;
++        }
++
++        .skill-category h4 {
++            font-size: 11px;
++            font-weight: bold;
++            color: #0a246a;
++            margin-bottom: 4px;
++        }
++
++        .hidden { display: none; }
++    
+ 
+EOF
+)
