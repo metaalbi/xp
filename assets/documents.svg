@@ -1,0 +1,10 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a//dev/null b/assets/documents.svg
+index 0000000000000000000000000000000000000000..7ce2117e726e66b8a10c9d3cf0a264959f0430b8 100644
+--- a//dev/null
++++ b/assets/documents.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect width="12" height="14" x="2" y="1" fill="white" stroke="gray"/></svg>
+ 
+EOF
+)
