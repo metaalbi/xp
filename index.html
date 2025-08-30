@@ -644,5 +644,34 @@ Response Time: Within 24 hours
         </div>
     </div>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const icons = document.querySelectorAll('.desktop-icon');
+        const windows = document.querySelectorAll('.window');
+        let topZ = 100;
+
+        function bringToFront(win) {
+            windows.forEach(w => w.classList.remove('active'));
+            topZ++;
+            win.classList.add('active');
+            win.style.zIndex = topZ;
+        }
+
+        icons.forEach(icon => {
+            icon.addEventListener('dblclick', function () {
+                const win = document.getElementById(icon.dataset.window);
+                if (win) {
+                    win.classList.remove('hidden');
+                    bringToFront(win);
+                }
+            });
+        });
+
+        windows.forEach(win => {
+            win.addEventListener('mousedown', () => bringToFront(win));
+        });
+    });
+    </script>
+
 </body>
 </html>
